@@ -1,6 +1,6 @@
 <div align="center">
 
-# Person Re-Identification
+# Face Re-Identification
 
 **Find a person in any video, from a single reference photo.**
 
@@ -57,26 +57,26 @@ independently of the web layer built around it.
 
 ```
                     ┌───────────────────────┐
-                    │   React Frontend       │   Upload UI · Results · Galleries
-                    │   (Vite + Tailwind)    │
+                    │   React Frontend      │   Upload UI · Results · Galleries
+                    │   (Vite + Tailwind)   │
                     └───────────┬───────────┘
                                 │  HTTP (axios / multipart upload)
                     ┌───────────▼───────────┐
-                    │   FastAPI Backend      │   Validates uploads, orchestrates
-                    │   (backend/)           │   runs, serves files -- NO AI logic
+                    │   FastAPI Backend     │   Validates uploads, orchestrates
+                    │   (backend/)          │   runs, serves files -- NO AI logic
                     └───────────┬───────────┘
                                 │  subprocess call
                                 │  (same CLI contract as manual use)
                     ┌───────────▼───────────┐
-                    │   AI Pipeline          │   Detect → Align → Embed → Match
-                    │   (core/ + pipeline/)  │   → Aggregate timestamps
+                    │   AI Pipeline         │   Detect → Align → Embed → Match
+                    │   (core/ + pipeline/) │   → Aggregate timestamps
                     └───────────┬───────────┘
                                 │
                     ┌───────────▼───────────┐
-                    │   outputs/{run_id}/    │   result.json · result.csv
-                    │                        │   matched_faces/ · matched_frames/
-                    │                        │   annotated_frames/ · embeddings
-                    └────────────────────────┘
+                    │   outputs/{run_id}/   │   result.json · result.csv
+                    │                       │   matched_faces/ · matched_frames/
+                    │                       │   annotated_frames/ · embeddings
+                    └───────────────────────┘
 ```
 
 **Why a subprocess, not an import?** Running `pipeline/run_pipeline.py` as
@@ -89,9 +89,9 @@ not a convention.
 ### Pipeline stages, in detail
 
 ```
-reference image ─┐
+reference image ──┐
                   ├─► detect faces ─► align (112×112) ─► embed (ArcFace, 512-d)
-video frames ─────┘                                            │
+video frames ─────┘                                              │
                                                                  ▼
                                           cosine similarity vs. reference
                                                                  │
