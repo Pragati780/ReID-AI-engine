@@ -29,7 +29,7 @@ with a confidence score for each appearance, matched face crops, and annotated f
 
 ## Overview
 
-**Face Search** is a full-stack face re-identification application. Given a
+**Face Re-Identification** is a full-stack re-identification application. Given a
 single reference photo — even one that's blurry, off-angle, or low
 resolution — it scans a video and reports:
 
@@ -214,8 +214,8 @@ face-reid-project/
 ### 1. Clone and install the AI pipeline
 
 ```bash
-git clone <your-repo-url> face-reid-project
-cd face-reid-project
+git clone <your-repo-url> ReID-AI-engine
+cd ReID-AI-engine
 pip install -r requirements.txt
 ```
 
