@@ -1,0 +1,94 @@
+# ==========================
+# Python
+# ==========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+face-reid/
+
+# Environment Variables
+.env
+.env.*
+
+# ==========================
+# AI Outputs
+# ==========================
+outputs/
+backend/uploads/
+backend/responses/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Logs
+*.log
+
+# ==========================
+# Node / React
+# ==========================
+frontend/node_modules/
+frontend/dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==========================
+# IDE
+# ==========================
+.vscode/
+.idea/
+*.swp
+
+# ==========================
+# OS Files
+# ==========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==========================
+# Jupyter
+# ==========================
+.ipynb_checkpoints/
+
+# ==========================
+# Build
+# ==========================
+build/
+dist/
+
+# ==========================
+# Cache
+# ==========================
+.cache/
+
+# ==========================
+# Models (Optional)
+# Uncomment if model weights are huge
+# ==========================
+# *.onnx
+# *.pth
+# *.pt
+
+# ==========================
+# Data (Keep folder, ignore contents)
+# Uncomment if you don't want to upload sample data
+# ==========================
+# data/reference_images/*
+# data/videos/*
+# !data/reference_images/.gitkeep
+# !data/videos/.gitkeep

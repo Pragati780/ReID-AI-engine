@@ -1,0 +1,9 @@
+{
+  "video": "data/videos/example_test_clip.mp4",
+  "person": "example_person",
+  "notes": "Manually annotated by watching the video once. Timestamps in seconds.",
+  "appearances": [
+    { "start_sec": 4.2, "end_sec": 9.8 },
+    { "start_sec": 22.0, "end_sec": 26.5 }
+  ]
+}

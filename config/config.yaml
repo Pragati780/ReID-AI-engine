@@ -1,0 +1,43 @@
+# =============================================================================
+# Face Re-Identification MVP — Configuration
+# All tunable knobs live here so nothing is hardcoded inside the pipeline code.
+# =============================================================================
+
+# ---- Model settings -------------------------------------------------------
+model:
+  pack_name: "buffalo_l"        # insightface model pack: bundles SCRFD detector
+                                  # (successor of RetinaFace, same family/approach)
+                                  # + ArcFace recognition model, pretrained.
+  ctx_id: -1                     # -1 = CPU, 0 = first GPU (use 0+ if CUDA available)
+  det_size: [640, 640]           # input resolution for the detector
+  det_thresh: 0.5                # minimum detector confidence to keep a face box
+  embedding_image_size: 112      # standard aligned crop size ArcFace expects
+
+# ---- Face quality gating ---------------------------------------------------
+quality:
+  min_face_size_px: 40           # ignore faces smaller than this (unreliable embeddings)
+  blur_variance_threshold: 30.0  # variance of Laplacian; below this = flag as blurry
+  warn_on_low_quality_reference: true
+
+# ---- Matching ---------------------------------------------------------------
+matching:
+  similarity_threshold: 0.38     # cosine similarity cutoff (calibrate on your own data!)
+  low_confidence_margin: 0.05    # scores within threshold +/- margin are flagged "borderline"
+
+# ---- Video sampling ----------------------------------------------------------
+video:
+  frame_sample_fps: 2            # how many frames per second to analyze
+  resize_max_width: 1280         # downscale very large frames before detection (speed)
+
+# ---- Timestamp aggregation ---------------------------------------------------
+aggregation:
+  gap_tolerance_seconds: 1.0     # bridge over short gaps (occlusion/motion blur) within an appearance
+  min_appearance_duration_seconds: 0.5   # drop appearances shorter than this (likely false positives)
+
+# ---- Output -------------------------------------------------------------------
+output:
+  save_matched_faces: true       # matched_faces/    -- per-face crop for each matched face
+  save_matched_frames: true      # matched_frames/    -- original, unmodified frame (once per matched frame)
+  save_annotated_frames: true    # annotated_frames/ -- original frame + drawn boxes/labels for all matches in it
+  save_all_embeddings: true
+  base_output_dir: "outputs"
