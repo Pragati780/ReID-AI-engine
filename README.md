@@ -51,6 +51,9 @@ a black-box subprocess, exactly the way you'd run it from a terminal. This
 means the core recognition logic can be tested, understood, and trusted
 independently of the web layer built around it.
 
+<img width="853" height="678" alt="image" src="https://github.com/user-attachments/assets/fbbda995-845c-4b43-b968-753ca8fe9351" />
+
+
 ---
 
 ## Architecture
