@@ -57,29 +57,57 @@ independently of the web layer built around it.
 
 ## Architecture
 
-```
-                    ┌───────────────────────┐
-                    │   React Frontend      │   Upload UI · Results · Galleries
-                    │   (Vite + Tailwind)   │
-                    └───────────┬───────────┘
-                                │  HTTP (axios / multipart upload)
-                    ┌───────────▼───────────┐
-                    │   FastAPI Backend     │   Validates uploads, orchestrates
-                    │   (backend/)          │   runs, serves files -- NO AI logic
-                    └───────────┬───────────┘
-                                │  subprocess call
-                                │  (same CLI contract as manual use)
-                    ┌───────────▼───────────┐
-                    │   AI Pipeline         │   Detect → Align → Embed → Match
-                    │   (core/ + pipeline/) │   → Aggregate timestamps
-                    └───────────┬───────────┘
-                                │
-                    ┌───────────▼───────────┐
-                    │   outputs/{run_id}/   │   result.json · result.csv
-                    │                       │   matched_faces/ · matched_frames/
-                    │                       │   annotated_frames/ · embeddings
-                    └───────────────────────┘
-```
+<svg width="680" height="690" viewBox="0 0 680 690" xmlns="http://www.w3.org/2000/svg" font-family="Inter, -apple-system, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#5F5E5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <rect width="680" height="690" fill="#FFFFFF"/>
+
+  <!-- Node 1: React Frontend -->
+  <rect x="100" y="40" width="480" height="80" rx="10" fill="#FAECE7" stroke="#D85A30" stroke-width="1"/>
+  <text x="340" y="66" text-anchor="middle" font-size="16" font-weight="600" fill="#4A1B0C">React frontend</text>
+  <text x="340" y="88" text-anchor="middle" font-size="13" fill="#712B13">Vite + Tailwind</text>
+  <text x="340" y="106" text-anchor="middle" font-size="13" fill="#712B13">Upload UI · Results · Galleries</text>
+
+  <!-- Arrow 1 -->
+  <line x1="340" y1="120" x2="340" y2="188" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="360" y="158" text-anchor="start" font-size="12" fill="#5F5E5A">HTTP</text>
+  <text x="360" y="174" text-anchor="start" font-size="12" fill="#5F5E5A">axios · multipart upload</text>
+
+  <!-- Node 2: FastAPI Backend -->
+  <rect x="100" y="190" width="480" height="100" rx="10" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+  <text x="340" y="216" text-anchor="middle" font-size="16" font-weight="600" fill="#042C53">FastAPI backend</text>
+  <text x="340" y="238" text-anchor="middle" font-size="13" fill="#0C447C">backend/</text>
+  <text x="340" y="256" text-anchor="middle" font-size="13" fill="#0C447C">Validates uploads, orchestrates runs, serves files</text>
+  <text x="340" y="274" text-anchor="middle" font-size="13" font-style="italic" fill="#0C447C">(no AI logic)</text>
+
+  <!-- Arrow 2 -->
+  <line x1="340" y1="290" x2="340" y2="358" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="360" y="328" text-anchor="start" font-size="12" fill="#5F5E5A">subprocess call</text>
+  <text x="360" y="344" text-anchor="start" font-size="12" fill="#5F5E5A">same CLI contract as manual use</text>
+
+  <!-- Node 3: AI Pipeline -->
+  <rect x="100" y="360" width="480" height="80" rx="10" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1"/>
+  <text x="340" y="386" text-anchor="middle" font-size="16" font-weight="600" fill="#04342C">AI pipeline</text>
+  <text x="340" y="408" text-anchor="middle" font-size="13" fill="#085041">core/ + pipeline/</text>
+  <text x="340" y="426" text-anchor="middle" font-size="13" fill="#085041">Detect → align → embed → match → aggregate</text>
+
+  <!-- Arrow 3 -->
+  <line x1="340" y1="440" x2="340" y2="498" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="360" y="474" text-anchor="start" font-size="12" fill="#5F5E5A">writes to</text>
+
+  <!-- Node 4: Outputs -->
+  <rect x="100" y="500" width="480" height="150" rx="10" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1"/>
+  <text x="340" y="526" text-anchor="middle" font-size="16" font-weight="600" fill="#26215C">outputs/{run_id}/</text>
+  <text x="340" y="550" text-anchor="middle" font-size="13" fill="#3C3489">result.json · result.csv</text>
+  <text x="340" y="570" text-anchor="middle" font-size="13" fill="#3C3489">matched_faces/</text>
+  <text x="340" y="590" text-anchor="middle" font-size="13" fill="#3C3489">matched_frames/</text>
+  <text x="340" y="610" text-anchor="middle" font-size="13" fill="#3C3489">annotated_frames/</text>
+  <text x="340" y="630" text-anchor="middle" font-size="13" fill="#3C3489">embeddings/</text>
+</svg>
 
 **Why a subprocess, not an import?** Running `pipeline/run_pipeline.py` as
 an isolated process — instead of importing `core/*.py` into the backend —
