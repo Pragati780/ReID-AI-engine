@@ -387,5 +387,5 @@ This project is licensed under the [MIT License](LICENSE).
   detection and ArcFace recognition models
 - [ArcFace: Additive Angular Margin Loss for Deep Face Recognition](https://arxiv.org/abs/1801.07698)
 - [FastAPI](https://fastapi.tiangolo.com/) and [React](https://react.dev/)
-  for making the web layer straightforward to build around an unmodified
+for making the web layer straightforward to build around an unmodified
   AI core
