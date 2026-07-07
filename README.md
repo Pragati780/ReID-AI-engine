@@ -89,21 +89,9 @@ can never take the API server down with it. It's a structural guarantee,
 not a convention.
 
 ### Pipeline stages, in detail
+                                                              ▼
+<img width="1865" height="478" alt="image" src="https://github.com/user-attachments/assets/4fc8981f-36f9-43d2-91d0-74b624774019" />
 
-```
-reference image ──┐
-                  ├─► detect faces ─► align (112×112) ─► embed (ArcFace, 512-d)
-video frames ─────┘                                              │
-                                                                 ▼
-                                          cosine similarity vs. reference
-                                                                 │
-                                                                 ▼
-                                    threshold + gap-tolerant merge over time
-                                                                 │
-                                                                 ▼
-                    result.json / result.csv / matched_faces / matched_frames
-                                / annotated_frames / embeddings / logs
-```
 
 Every design decision behind this (why SCRFD over YOLO, why ArcFace, why
 cosine similarity, how the similarity threshold is calibrated, how
