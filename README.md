@@ -57,7 +57,8 @@ independently of the web layer built around it.
 
 ## Architecture
 
-<img width="1422" height="1442" alt="image" src="https://github.com/user-attachments/assets/bd1c32bf-97b6-4ba8-b45f-f04386fd3d79" />
+<img width="1475" height="571" alt="image" src="https://github.com/user-attachments/assets/233a5e15-a54a-40ef-ae97-96d44790dca9" />
+
 
 
 **Why a subprocess, not an import?** Running `pipeline/run_pipeline.py` as
